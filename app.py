@@ -12,7 +12,6 @@ import asyncio
 import subprocess
 import re
 
-
 # Enable tracemalloc
 tracemalloc.start()
 
@@ -45,7 +44,8 @@ MEMPOOL_API_BASE = "https://mempool.space/api"
 # AI settings
 AI_SETTINGS = {
     "temperature": 0.7,
-    "max_tokens": 1000
+    "max_tokens": 1500,
+    "stream": True
 }
 
 
@@ -67,7 +67,7 @@ async def query_mempool_api(endpoint, params=None):
     """Query the Mempool API and return the response."""
     url = f"{MEMPOOL_API_BASE}{endpoint}"
     try:
-        async with asyncio.timeout(10):  # Set a timeout of 10 seconds
+        async with asyncio.timeout(15):  # Set a timeout of 15 seconds
             response = await asyncio.to_thread(requests.get, url, params=params)
         response.raise_for_status()
         logger.info(f"API request successful: {url}")
@@ -199,6 +199,8 @@ async def process_user_query(query):
     return None
 
 
+
+
 # Update the main function to use the new process_user_query
 @cl.on_message
 async def main(message: cl.Message):
@@ -210,7 +212,7 @@ async def main(message: cl.Message):
 
     # Prepare the context for the AI
     if api_data:
-        context = f"User query: {query}\n\nRelevant Bitcoin data: {api_data}\n\nPlease provide a helpful response based on this information, explaining the data if necessary. If the data is too long or complex, summarize the key points."
+        context = f"User query: {query}\n\nRelevant Bitcoin data: {api_data}\n\nYou are a Bitcoin expert in explaining current bitcoin data extracted from the api request, Please provide a helpful response based on this information, explaining the data if necessary. Provide a chart, graph or summery if it applies. If the data is too long or complex, summarize the key points."
     else:
         context = f"User query: {query}\n\nNo specific Bitcoin data was retrieved for this query. Please provide a friendly and helpful response based on your general knowledge about Bitcoin and blockchain technology. If the query is not related to Bitcoin, you can engage in general conversation."
 
@@ -255,4 +257,6 @@ Feel free to ask me about these topics or anything else you'd like to discuss!
 
 💡 **Tip**: Try asking about a specific ₿itcoin transaction, address, or the current market price!
 """
+
     await cl.Message(content=welcome_message).send()
+    

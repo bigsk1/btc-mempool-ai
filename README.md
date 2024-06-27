@@ -47,6 +47,8 @@ The Bitcoin Mempool AI Assistant is an advanced chatbot designed to provide real
 4. Set up your environment variables:
    Create a `.env` file in the project root and add your API keys:
    ```
+   # You have the option to use any of the AI Providers below
+   
    OPENAI_API_KEY=api_key
 
    ANTHROPIC_API_KEY=api_key
