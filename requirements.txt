@@ -4,3 +4,7 @@ anthropic
 httpx
 python-dotenv
 requests
+kaleido
+plotly
+pandas
+asyncio

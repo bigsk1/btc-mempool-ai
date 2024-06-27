@@ -75,7 +75,20 @@ chainlit run app.py -w
 
 Navigate to `http://localhost:8000` in your web browser to interact with the assistant.
 
+### Example Queries
+
+- "What's the current Bitcoin price?"
+- "Show me the mempool fee distribution for the last 24 hours."
+- "Explain the latest difficulty adjustment in Bitcoin mining."
+- "What's the transaction history for this Bitcoin address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+- "Graph the Bitcoin price change over the last month."
+
+
 ## Configuration
+
+You can customize the assistant's behavior by modifying the .env file. Change the AI_PROVIDER and AI_MODEL variables to switch between different AI providers and models.
+
+
 
 You can customize the assistant's behavior and appearance by modifying the `.chainlit/config.toml` file. Refer to the Chainlit documentation for more details on configuration options.
 
