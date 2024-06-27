@@ -92,6 +92,16 @@ You can customize the assistant's behavior by modifying the .env file. Change th
 
 You can customize the assistant's behavior and appearance by modifying the `.chainlit/config.toml` file. Refer to the Chainlit documentation for more details on configuration options.
 
+---
+
+
+![mem1](https://imagedelivery.net/WfhVb8dSNAAvdXUdMfBuPQ/82844360-af76-42d2-9163-e0ba7fe44e00/public)
+
+
+---
+
+![mem2](https://imagedelivery.net/WfhVb8dSNAAvdXUdMfBuPQ/51cb8776-46b0-409f-1979-f1b8ce552000/public)
+
 ## Contributing
 
 Contributions to the Bitcoin Mempool AI Assistant are welcome! Please feel free to submit pull requests, create issues or spread the word.
