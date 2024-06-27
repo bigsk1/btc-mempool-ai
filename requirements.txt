@@ -1,0 +1,6 @@
+chainlit
+openai
+anthropic
+httpx
+python-dotenv
+requests
