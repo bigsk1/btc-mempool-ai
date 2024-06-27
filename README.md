@@ -5,7 +5,7 @@
 The Bitcoin Mempool AI Assistant is an advanced chatbot designed to provide real-time insights and information about Bitcoin transactions, blockchain data, and market trends. Powered by state-of-the-art language models and integrating with live Bitcoin network data, this assistant offers a unique blend of AI capabilities and blockchain expertise.
 
 
-![bitcoin-mempool-ai](https://imagedelivery.net/WfhVb8dSNAAvdXUdMfBuPQ/578ff544-27ed-456a-82bc-9c0b22a3d800/public)
+![bitcoin-mempool-ai](https://imagedelivery.net/WfhVb8dSNAAvdXUdMfBuPQ/2bd334cd-3e65-4d93-98ec-2d68f8f90a00/public)
 
 
 ## Features
