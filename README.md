@@ -102,6 +102,10 @@ You can customize the assistant's behavior and appearance by modifying the `.cha
 
 ![mem2](https://imagedelivery.net/WfhVb8dSNAAvdXUdMfBuPQ/51cb8776-46b0-409f-1979-f1b8ce552000/public)
 
+
+## GPT from OpenAI
+
+I also made a custom GPT from openai's gpt store, which has similar functionalities and api calls to mempool, it can be found here  [https://chatgpt.com/g/g-fhvMWr0qz-btc-mempool-ai](https://chatgpt.com/g/g-fhvMWr0qz-btc-mempool-ai)
 ## Contributing
 
 Contributions to the Bitcoin Mempool AI Assistant are welcome! Please feel free to submit pull requests, create issues or spread the word.
