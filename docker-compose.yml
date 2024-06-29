@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  bitcoin-mempool-ai:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY
+      - ANTHROPIC_API_KEY
+      - OLLAMA_BASE_URL
+      - AI_PROVIDER
+      - AI_MODEL
+    networks:
+      - ai-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://mempool.space/api/v1/prices"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  ai-network:
+    driver: bridge

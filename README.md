@@ -106,6 +106,112 @@ You can customize the assistant's behavior and appearance by modifying the `.cha
 ## GPT from OpenAI
 
 I also made a custom GPT from openai's gpt store, which has similar functionalities and api calls to mempool, it can be found here  [https://chatgpt.com/g/g-fhvMWr0qz-btc-mempool-ai](https://chatgpt.com/g/g-fhvMWr0qz-btc-mempool-ai)
+
+
+
+## Docker Setup and Usage
+
+This project uses Docker to ensure consistent environments and easy deployment. Follow these steps to get started with Docker:
+
+### Prerequisites
+
+- Docker installed on your system
+- Docker Compose installed on your system
+
+### Building the Docker Image
+
+To build the Docker image for the Bitcoin Mempool AI Assistant:
+
+```bash
+docker-compose build
+```
+
+### Running the Container
+
+To start the container:
+
+```bash
+docker-compose up -d
+```
+
+The `-d` flag runs the container in detached mode.
+
+### Viewing Logs
+
+To view the logs of the running container:
+
+```bash
+docker-compose logs -f
+```
+
+### Stopping the Container
+
+To stop the running container:
+
+```bash
+docker-compose down
+```
+
+### Changing AI Provider
+
+You can easily switch between different AI providers (OpenAI, Anthropic, Ollama) without rebuilding the container. Use the provided script:
+
+1. Make the script executable (first time only):
+   ```bash
+   chmod +x switch_provider.sh
+   ```
+
+2. Run the script to switch providers:
+   ```bash
+   ./switch_provider.sh [openai|anthropic|ollama] [model_name]
+   ```
+
+   Example:
+   ```bash
+   ./switch_provider.sh openai gpt-4
+   ```
+
+   Or use the default model for a provider:
+   ```bash
+   ./switch_provider.sh anthropic
+   ```
+
+### Environment Variables
+
+The following environment variables can be set in your `.env` file:
+
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `ANTHROPIC_API_KEY`: Your Anthropic API key
+- `OLLAMA_BASE_URL`: URL for Ollama (default: http://localhost:11434)
+- `AI_PROVIDER`: The AI provider to use (openai, anthropic, or ollama)
+- `AI_MODEL`: The specific model to use with the chosen provider
+
+### Accessing the Application
+
+Once the container is running, you can access the Bitcoin Mempool AI Assistant at:
+
+```
+http://localhost:8000
+```
+
+### Troubleshooting
+
+If you encounter any issues:
+
+1. Ensure all required environment variables are set in your `.env` file.
+2. Try rebuilding the image without cache:
+   ```bash
+   docker-compose build --no-cache
+   ```
+3. Check the logs for any error messages:
+   ```bash
+   docker-compose logs -f
+   ```
+
+For more detailed information about the project structure and API usage, refer to the sections above in this README.
+
+
+
 ## Contributing
 
 Contributions to the Bitcoin Mempool AI Assistant are welcome! Please feel free to submit pull requests, create issues or spread the word.

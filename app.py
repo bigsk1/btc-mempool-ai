@@ -14,6 +14,7 @@ import re
 import plotly.graph_objects as go
 import pandas as pd
 import httpx
+import aiohttp
 from datetime import datetime, timedelta
 
 
@@ -136,18 +137,23 @@ async def check_ollama_model():
 async def query_mempool_api(endpoint, params=None):
     """Query the Mempool API and return the response."""
     url = f"{MEMPOOL_API_BASE}{endpoint}"
+    logger.info(f"Attempting to query Mempool API: {url}")
     try:
-        async with asyncio.timeout(15):  # Set a timeout of 15 seconds
-            response = await asyncio.to_thread(requests.get, url, params=params)
-        response.raise_for_status()
-        logger.info(f"API request successful: {url}")
-        return response.json()
-    except asyncio.TimeoutError:
-        logger.error(f"API request timed out: {url}")
-        return None
-    except requests.RequestException as e:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, params=params, timeout=15) as response:
+                logger.info(f"API request status: {response.status}")
+                response.raise_for_status()
+                data = await response.json()
+                logger.info(f"API request successful: {url}")
+                logger.debug(f"API response data: {data}")
+                return data
+    except aiohttp.ClientError as e:
         logger.error(f"API request failed: {url}. Error: {str(e)}")
         return None
+    except Exception as e:
+        logger.error(f"Unexpected error in API request: {url}. Error: {str(e)}")
+        return None
+
 
 async def generate_ai_response(messages):
     """Generate AI response using the configured provider."""
@@ -385,8 +391,17 @@ async def main(message: cl.Message):
     query = message.content
     logger.info(f"Received user query: {query}")
 
+    # Direct API call test
+    logger.info("Attempting direct API call to Mempool")
+    direct_api_result = await query_mempool_api("/v1/prices")
+    if direct_api_result:
+        logger.info(f"Direct API call successful. Result: {direct_api_result}")
+    else:
+        logger.error("Direct API call failed")
+
     # Process the query to get relevant API data
     intent, api_data, extra_info = await process_user_query(query)
+    logger.info(f"Processed query. Intent: {intent}, Extra info: {extra_info}")
 
     if intent == "price_change":
         start_price, end_price = api_data
@@ -431,7 +446,7 @@ async def main(message: cl.Message):
     await msg.send()
 
     # Generate AI response
-    system_message = "You are a friendly and knowledgeable AI assistant specializing in Bitcoin and blockchain technology, but also capable of general conversation. When asked about Bitcoin, provide accurate and helpful information, explaining technical concepts in an easy-to-understand manner. For other topics, engage in a natural, conversational manner."
+    system_message = "You are a friendly and knowledgeable AI assistant specializing in Bitcoin and blockchain technology, but also capable of general conversation. You have direct access to mempool api that returns bitcoin data, When asked about Bitcoin, provide accurate and helpful information, explaining technical concepts in an easy-to-understand manner. For other topics, engage in a natural, conversational manner."
     
     messages = [
         {"role": "system", "content": system_message},
